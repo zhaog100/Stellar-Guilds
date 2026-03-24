@@ -52,12 +52,9 @@ impl IntegrationErrorHandler {
             IntegrationError::InvalidParameter => "InvalidParameter",
         };
 
-        let context_info = match ctx.details {
-            Some(details) => format!("{}::{} - {} ({})", ctx.module, ctx.function, error_msg, details),
-            None => format!("{}::{} - {}", ctx.module, ctx.function, error_msg),
-        };
-
-        String::from_str(env, &context_info)
+        // Simplified error formatting for no_std
+        let error_str = String::from_str(env, error_msg);
+        error_str
     }
 
     /// Log an error (in production would write to event log).

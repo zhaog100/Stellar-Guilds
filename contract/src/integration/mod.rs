@@ -55,7 +55,7 @@ pub mod status;
 pub use types::{
     ContractType, EventType, Event, ContractVersion, ContractRegistryEntry,
     IntegrationError, IntegrationResult, EventFilter, EventSubscription,
-    CrossContractResult, MAX_EVENT_DATA_SIZE, DEFAULT_EVENT_LIMIT,
+    MAX_EVENT_DATA_SIZE, DEFAULT_EVENT_LIMIT,
 };
 
 pub use registry::{

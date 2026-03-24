@@ -153,14 +153,6 @@ pub struct ContractRegistryEntry {
     pub is_active: bool,
 }
 
-/// Cross-contract call result.
-#[contracttype]
-#[derive(Clone, Debug)]
-pub enum CrossContractResult<T> {
-    Success(T),
-    Failure(Symbol),
-}
-
 /// Error codes for the integration layer.
 #[contracttype]
 #[derive(Clone, Debug, PartialEq, Eq)]

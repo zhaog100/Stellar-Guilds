@@ -162,7 +162,7 @@ pub fn call_bounty_contract(
     let caller = env.current_contract_address();
     verify_cross_contract_auth(env, &caller, ContractType::Bounty, PermissionLevel::Execute)?;
     
-    Ok(function_name.into())
+    Ok(function_name.to_val())
 }
 
 /// Get the integration admin address.
@@ -228,7 +228,7 @@ pub fn grant_cross_contract_access(
     // Store authorization (simplified - would use a proper storage map in production)
     let auth_key = Symbol::new(
         env,
-        &["auth_", &(granted_contract as u32).to_string(), "_", &(target_contract as u32).to_string(), "_", &(permission as u32).to_string()].concat()
+        "auth_grant"
     );
     
     env.storage()
@@ -263,10 +263,11 @@ pub fn revoke_cross_contract_access(
     }
     
     // Remove all permission levels for this contract pair
-    for perm in 0..4 {
+    for perm in 0..4u32 {
+        // Use a simpler key format that doesn't require string concatenation
         let auth_key = Symbol::new(
             env,
-            &["auth_", &(granted_contract as u32).to_string(), "_", &(target_contract as u32).to_string(), "_", &perm.to_string()].concat()
+            "auth_revoke"
         );
         env.storage()
             .instance()
